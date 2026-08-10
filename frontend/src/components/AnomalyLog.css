@@ -1,0 +1,101 @@
+.anomaly-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 360px;
+  padding-right: 4px;
+}
+
+.anomaly-list::-webkit-scrollbar { width: 4px; }
+.anomaly-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.anomaly-item {
+  display: flex;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid rgba(var(--red-rgb), 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  animation: slideInFade 0.3s ease;
+}
+
+.anomaly-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.anomaly-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.anomaly-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.anomaly-type {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.anomaly-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.anomaly-reason {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.anomaly-meta {
+  display: flex;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.anomaly-source {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--surface-hover);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.anomaly-amount {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.anomaly-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.anomaly-empty span {
+  font-size: 28px;
+  opacity: 0.5;
+}
+
+.anomaly-empty p {
+  margin: 0;
+}

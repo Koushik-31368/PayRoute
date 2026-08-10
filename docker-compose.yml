@@ -1,0 +1,70 @@
+version: '3.9'
+
+# ══════════════════════════════════════════════════════════════════════
+#  PayRoute — Docker Compose
+#  Single command startup: docker-compose up --build
+#
+#  Services:
+#    postgres  — PostgreSQL 15, data persisted in a named volume
+#    backend   — Spring Boot app, depends on postgres being healthy
+#    frontend  — Nginx serving React, proxies to backend
+#
+#  Startup order:
+#    postgres → backend → frontend
+#    Spring Boot won't start until PostgreSQL is accepting connections
+#    (enforced by depends_on + healthcheck).
+# ══════════════════════════════════════════════════════════════════════
+
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: payroute-postgres
+    environment:
+      POSTGRES_DB: payroute
+      POSTGRES_USER: payroute
+      POSTGRES_PASSWORD: payroute
+    ports:
+      - "5432:5432"  # Expose for direct access with psql or a DB GUI
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U payroute -d payroute"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: payroute-backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Override the datasource URL to point to the postgres service name
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/payroute
+      SPRING_DATASOURCE_USERNAME: payroute
+      SPRING_DATASOURCE_PASSWORD: payroute
+      # JVM tuning for containers — keeps memory usage predictable
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: payroute-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    name: payroute-postgres-data

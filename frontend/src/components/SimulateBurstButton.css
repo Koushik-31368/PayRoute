@@ -1,0 +1,105 @@
+.burst-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.burst-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.burst-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex: 1;
+}
+
+.burst-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.burst-input:focus {
+  border-color: var(--accent);
+}
+
+.burst-input:disabled {
+  opacity: 0.5;
+}
+
+.burst-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  letter-spacing: 0.02em;
+}
+
+.burst-btn:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.burst-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.burst-btn:disabled {
+  cursor: not-allowed;
+}
+
+.burst-btn--running {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+
+.burst-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.burst-progress {
+  height: 3px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.burst-progress__bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}

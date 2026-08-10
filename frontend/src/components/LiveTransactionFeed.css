@@ -1,0 +1,147 @@
+.txn-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 520px;
+  padding-right: 4px;
+}
+
+.txn-feed::-webkit-scrollbar { width: 4px; }
+.txn-feed::-webkit-scrollbar-track { background: transparent; }
+.txn-feed::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.txn-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.txn-row--new {
+  animation: slideInFade 0.35s ease;
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.txn-row__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.txn-row__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.txn-row__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.txn-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.txn-amount {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.txn-source {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--surface-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.txn-provider {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.txn-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.txn-attempts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.txn-attempt-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.txn-attempt-sep {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Empty state */
+.feed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.feed-empty__icon {
+  font-size: 36px;
+  opacity: 0.4;
+}
+
+.feed-empty p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.feed-empty__sub {
+  font-size: 12px !important;
+  opacity: 0.7;
+}

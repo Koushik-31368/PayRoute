@@ -1,0 +1,112 @@
+.health-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.health-card--open {
+  border-color: rgba(var(--red-rgb), 0.4);
+  box-shadow: 0 0 20px rgba(var(--red-rgb), 0.08);
+}
+
+.health-card--half_open {
+  border-color: rgba(var(--amber-rgb), 0.4);
+  box-shadow: 0 0 20px rgba(var(--amber-rgb), 0.08);
+}
+
+.health-card--closed {
+  border-color: rgba(var(--green-rgb), 0.2);
+}
+
+.health-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.health-card__title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.health-card__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.health-card__subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.health-card__state {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.health-card__dot {
+  font-size: 10px;
+}
+
+.health-card__dot.pulse {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.health-card__bar-wrapper {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.health-card__bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease, background 0.3s ease;
+}
+
+.health-card__stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.health-card__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.health-card__stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.health-card__stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
