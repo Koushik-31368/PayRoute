@@ -3,15 +3,21 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+
+  // sockjs-client uses Node's `global` which doesn't exist in browsers.
+  // This tells Vite to replace every reference to `global` with `globalThis`,
+  // which is the browser-native equivalent.
+  define: {
+    global: 'globalThis',
+  },
+
   server: {
     port: 5173,
     proxy: {
-      // Proxy REST API calls to Spring Boot (avoids CORS in dev)
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
       },
-      // Proxy WebSocket connections
       '/ws': {
         target: 'http://localhost:8080',
         changeOrigin: true,
@@ -20,3 +26,4 @@ export default defineConfig({
     },
   },
 })
+
