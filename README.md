@@ -1,5 +1,10 @@
 # PayRoute — Intelligent Payment Orchestration Engine
 
+![Tech: Spring Boot](https://img.shields.io/badge/backend-Spring%20Boot%203.2-6db33f?logo=springboot&logoColor=white)
+![Tech: React](https://img.shields.io/badge/frontend-React%2018-61dafb?logo=react&logoColor=black)
+![Tech: PostgreSQL](https://img.shields.io/badge/database-PostgreSQL%2015-4169e1?logo=postgresql&logoColor=white)
+![Tech: Docker](https://img.shields.io/badge/containerised-Docker%20Compose-2496ed?logo=docker&logoColor=white)
+
 > A full-stack simulation of how real payment aggregators (Stripe, Razorpay, Juspay) route transactions across multiple providers with automatic failover, circuit breaking, and anomaly detection.
 
 **This is a portfolio/learning project — no real money, no real PCI concerns. Everything is simulated.**
@@ -91,6 +96,16 @@ npm install
 npm run dev
 # Dev server starts on http://localhost:5173 (proxies /api and /ws to :8080)
 ```
+
+---
+
+## UI Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl + Enter` (or `⌘ + Enter` on Mac) | Submit payment from anywhere on the page |
+
+Form values (amount and customer ID) are automatically persisted in `localStorage` across page reloads.
 
 ---
 
