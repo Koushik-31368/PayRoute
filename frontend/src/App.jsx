@@ -5,6 +5,7 @@ import LiveTransactionFeed from './components/LiveTransactionFeed';
 import AnomalyLog from './components/AnomalyLog';
 import SimulateBurstButton from './components/SimulateBurstButton';
 import { useWebSocket } from './hooks/useWebSocket';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import {
   getTransactions,
   getCircuitBreakers,
@@ -20,9 +21,9 @@ export default function App() {
   const [anomalies, setAnomalies] = useState([]);
   const [wsConnected, setWsConnected] = useState(false);
 
-  // Manual submit form
-  const [formAmount, setFormAmount] = useState('5000');
-  const [formSource, setFormSource] = useState('customer-001');
+  // Manual submit form — persisted in localStorage so values survive page reloads
+  const [formAmount, setFormAmount] = useLocalStorage('payroute.formAmount', '5000');
+  const [formSource, setFormSource] = useLocalStorage('payroute.formSource', 'customer-001');
   const [submitting, setSubmitting] = useState(false);
 
   // Stats
@@ -102,8 +103,20 @@ export default function App() {
       setSubmitting(false);
     }
   }
+  // Keyboard shortcut: Ctrl+Enter anywhere on the page submits the payment form
+  useEffect(() => {
+    function onKeyDown(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !submitting) {
+        if (formAmount && formSource) {
+          handleSubmit({ preventDefault: () => {} });
+        }
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [formAmount, formSource, submitting]);
 
-  // Build provider stats lookup
+  // Build provider stats lookup (reserved for future per-provider latency tracking)
   const providerLatencyMap = {};
 
   return (
