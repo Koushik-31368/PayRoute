@@ -297,3 +297,59 @@ input, button {
   from { opacity: 0; transform: translateY(-8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tablet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .provider-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile (≤ 640px) */
+@media (max-width: 640px) {
+  .header {
+    padding: 0 16px;
+    height: 52px;
+  }
+
+  .main {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .provider-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stat-chip {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 100px;
+  }
+
+  .submit-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .section__header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
