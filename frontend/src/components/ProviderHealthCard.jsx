@@ -24,6 +24,7 @@ export default function ProviderHealthCard({ provider, state, failureRate, avgLa
   const meta = STATE_META[state] || STATE_META.CLOSED;
   const label = PROVIDER_LABELS[provider] || { name: provider, subtitle: '' };
   const successRate = Math.max(0, 100 - failureRate).toFixed(1);
+  const isUnhealthy = state === 'OPEN' || state === 'HALF_OPEN';
 
   return (
     <div className={`health-card health-card--${state.toLowerCase()}`}>
@@ -40,7 +41,10 @@ export default function ProviderHealthCard({ provider, state, failureRate, avgLa
         </div>
       </div>
 
-      <div className="health-card__bar-wrapper">
+      <div
+        className="health-card__bar-wrapper"
+        title={`Success rate: ${successRate}% over last ${windowSamples} samples`}
+      >
         <div
           className="health-card__bar"
           style={{
@@ -49,6 +53,12 @@ export default function ProviderHealthCard({ provider, state, failureRate, avgLa
           }}
         />
       </div>
+
+      {isUnhealthy && (
+        <div className="health-card__alert">
+          ⚠ Failure rate: {failureRate.toFixed(1)}%
+        </div>
+      )}
 
       <div className="health-card__stats">
         <div className="health-card__stat">

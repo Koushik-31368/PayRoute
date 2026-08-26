@@ -110,3 +110,15 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
+/* Alert strip shown when provider is degraded (OPEN or HALF_OPEN) */
+.health-card__alert {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber);
+  background: rgba(var(--amber-rgb), 0.08);
+  border: 1px solid rgba(var(--amber-rgb), 0.2);
+  border-radius: 6px;
+  padding: 5px 10px;
+  letter-spacing: 0.02em;
+}
