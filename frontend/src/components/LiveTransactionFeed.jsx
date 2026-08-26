@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatINR, formatTime } from '../utils/format';
 import './LiveTransactionFeed.css';
 
 const STATUS_META = {
@@ -14,17 +15,7 @@ const RESULT_COLOR = {
   SKIPPED:  'var(--text-muted)',
 };
 
-function formatAmount(amount) {
-  return new Intl.NumberFormat('en-IN', {
-    style: 'currency', currency: 'INR', maximumFractionDigits: 2,
-  }).format(amount);
-}
-
-function formatTime(isoString) {
-  return new Date(isoString).toLocaleTimeString('en-IN', {
-    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
-  });
-}
+// formatINR and formatTime imported from utils/format.js
 
 /**
  * A single transaction row, showing:
@@ -41,7 +32,7 @@ function TransactionRow({ txn, isNew }) {
           <span className="txn-badge" style={{ color: meta.color, background: meta.bg }}>
             {meta.label}
           </span>
-          <span className="txn-amount">{formatAmount(txn.amount)}</span>
+          <span className="txn-amount">{formatINR(txn.amount)}</span>
           <span className="txn-source">{txn.source}</span>
         </div>
         <div className="txn-row__right">
