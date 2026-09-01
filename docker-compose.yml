@@ -1,19 +1,23 @@
+﻿# PayRoute Docker Compose - starts PostgreSQL for local development
+# Usage: docker-compose up -d postgres
+#        then: cd backend && mvn spring-boot:run
+
 version: '3.9'
 
-# ══════════════════════════════════════════════════════════════════════
-#  PayRoute — Docker Compose
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+#  PayRoute â€” Docker Compose
 #  Single command startup: docker-compose up --build
 #
 #  Services:
-#    postgres  — PostgreSQL 15, data persisted in a named volume
-#    backend   — Spring Boot app, depends on postgres being healthy
-#    frontend  — Nginx serving React, proxies to backend
+#    postgres  â€” PostgreSQL 15, data persisted in a named volume
+#    backend   â€” Spring Boot app, depends on postgres being healthy
+#    frontend  â€” Nginx serving React, proxies to backend
 #
 #  Startup order:
-#    postgres → backend → frontend
+#    postgres â†’ backend â†’ frontend
 #    Spring Boot won't start until PostgreSQL is accepting connections
 #    (enforced by depends_on + healthcheck).
-# ══════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 services:
 
@@ -47,7 +51,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/payroute
       SPRING_DATASOURCE_USERNAME: payroute
       SPRING_DATASOURCE_PASSWORD: payroute
-      # JVM tuning for containers — keeps memory usage predictable
+      # JVM tuning for containers â€” keeps memory usage predictable
       JAVA_OPTS: "-Xms256m -Xmx512m"
     depends_on:
       postgres:
@@ -68,3 +72,4 @@ services:
 volumes:
   postgres-data:
     name: payroute-postgres-data
+
