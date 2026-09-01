@@ -1,4 +1,4 @@
-# Build artifacts
+﻿# Build artifacts
 target/
 dist/
 node_modules/
@@ -22,3 +22,14 @@ Thumbs.db
 # Env files (never commit credentials)
 .env
 .env.local
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# Spring Boot devtools
+.reloadtrigger
+
+# Compiled classes already excluded via target/
+backend/target/classes/
