@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Shared formatting utilities used across multiple components.
  *
  * Centralising these prevents drift where LiveTransactionFeed and AnomalyLog
@@ -8,7 +8,7 @@
 /**
  * Format a number as Indian Rupee currency.
  * @param {number} amount
- * @param {boolean} [compact=false] - Use compact notation for large amounts (e.g. ₹1.2L)
+ * @param {boolean} [compact=false] - Use compact notation for large amounts (e.g. â‚¹1.2L)
  */
 export function formatINR(amount, compact = false) {
   return new Intl.NumberFormat('en-IN', {
@@ -60,4 +60,13 @@ export function timeAgo(isoString) {
   if (diffMin < 60) return `${diffMin}m ago`;
   const diffHr = Math.floor(diffMin / 60);
   return `${diffHr}h ago`;
+}
+
+/**
+ * Format a latency in milliseconds to a human-readable string.
+ * @param {number} ms
+ */
+export function formatLatency(ms) {
+  if (ms < 1000) return `ms`;
+  return `s`;
 }
