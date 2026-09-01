@@ -1,5 +1,5 @@
-/**
- * Centralised API layer — all fetch calls in one place.
+﻿/**
+ * Centralised API layer â€” all fetch calls in one place.
  * In a larger app, you'd split this by feature. Here it stays lean.
  */
 
@@ -35,8 +35,9 @@ export async function getCircuitBreakers() {
   return handleResponse(res);
 }
 
-/** Get the anomaly log */
+/** Get the anomaly log (most recent 100, newest first) */
 export async function getAnomalies() {
   const res = await fetch(`${BASE_URL}/api/anomalies`);
   return handleResponse(res);
 }
+
