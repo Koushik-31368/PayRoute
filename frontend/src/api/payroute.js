@@ -4,6 +4,7 @@
  */
 
 const BASE_URL = import.meta.env.VITE_API_URL || '';
+const DEFAULT_TIMEOUT_MS = 10_000; // 10 seconds
 
 async function handleResponse(res) {
   if (!res.ok) {
@@ -40,4 +41,5 @@ export async function getAnomalies() {
   const res = await fetch(`${BASE_URL}/api/anomalies`);
   return handleResponse(res);
 }
+
 
