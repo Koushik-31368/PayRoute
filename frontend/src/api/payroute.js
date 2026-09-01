@@ -43,3 +43,9 @@ export async function getAnomalies() {
 }
 
 
+
+/** Get provider simulation config (failure rates, latency ranges) */
+export async function getProviders() {
+  const res = await fetch(${BASE_URL}/api/providers);
+  return handleResponse(res);
+}
