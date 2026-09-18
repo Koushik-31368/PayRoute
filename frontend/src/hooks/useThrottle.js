@@ -10,6 +10,7 @@
  *
  * @param {function} fn    - The function to throttle
  * @param {number}  delay  - Minimum milliseconds between invocations (default: 1000)
+ * @since 1.0.0
  * @returns {function} A stable throttled wrapper around fn
  */
 
@@ -29,3 +30,4 @@ export function useThrottle(fn, delay = 1000) {
     [fn, delay],
   );
 }
+
