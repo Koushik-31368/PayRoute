@@ -12,8 +12,10 @@
  *
  * Ordering matches the natural lifecycle: PENDING -> SUCCESS | FAILED.
  */
+/** @since 1.0.0 */
 public enum TransactionStatus {
     PENDING,
     SUCCESS,
     FAILED
 }
+
