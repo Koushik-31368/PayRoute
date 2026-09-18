@@ -8,6 +8,7 @@
  * Falls back to the defaultValue if the key does not exist or JSON parsing fails.
  *
  * @param {string} key          - localStorage key
+ * @since 1.0.0
  * @param {any}    defaultValue - Value to use when the key is absent or unreadable
  */
 
@@ -33,3 +34,4 @@ export function useLocalStorage(key, defaultValue) {
 
   return [value, setValue];
 }
+
