@@ -1,5 +1,6 @@
-import React from 'react';
+﻿import React from 'react';
 import { formatINR, formatTime } from '../utils/format';
+import { ANOMALY_MAX_ITEMS } from '../utils/constants';
 import './AnomalyLog.css';
 
 const TYPE_META = {
@@ -8,13 +9,11 @@ const TYPE_META = {
   REPEATED_FAILURES: { label: 'Repeated Failures', icon: '🔁', color: 'var(--red)' },
 };
 
-// formatTime and formatINR imported from utils/format.js
-
 export default function AnomalyLog({ anomalies }) {
   if (anomalies.length === 0) {
     return (
       <div className="anomaly-empty">
-        <span>🛡️</span>
+        <span>✅</span>
         <p>No anomalies detected</p>
       </div>
     );
@@ -22,7 +21,7 @@ export default function AnomalyLog({ anomalies }) {
 
   return (
     <div className="anomaly-list">
-      {anomalies.slice(0, 100).map((a) => {
+      {anomalies.slice(0, ANOMALY_MAX_ITEMS).map((a) => {
         const meta = TYPE_META[a.anomalyType || a.type] || { label: 'Unknown', icon: '⚠️', color: 'var(--amber)' };
         return (
           <div key={a.id} className="anomaly-item">

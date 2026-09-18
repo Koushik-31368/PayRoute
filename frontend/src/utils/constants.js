@@ -33,3 +33,15 @@ export const ANOMALY_TYPE = {
 /** Max items to display in feeds */
 export const FEED_MAX_ITEMS    = 200;
 export const ANOMALY_MAX_ITEMS = 100;
+
+/** WebSocket reconnect delay in milliseconds */
+export const WS_RECONNECT_DELAY_MS = 3000;
+
+/** Interval (ms) for polling circuit-breaker state from the REST API */
+export const CB_POLL_INTERVAL_MS = 3000;
+
+/** Stagger delay (ms) between individual requests in the burst simulator */
+export const BURST_STAGGER_MS = 80;
+
+/** Fixed source identifier used by the burst simulator */
+export const BURST_SOURCE = 'burst-demo';

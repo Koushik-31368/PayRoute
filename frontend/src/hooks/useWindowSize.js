@@ -6,15 +6,19 @@
  *
  * Useful for conditionally rendering mobile vs desktop layouts
  * or hiding/showing panels based on screen width.
+ *
+ * SSR-safe: falls back to { width: 0, height: 0 } when window is unavailable.
  */
 
 import { useState, useEffect } from 'react';
 
+function getWindowSize() {
+  if (typeof window === 'undefined') return { width: 0, height: 0 };
+  return { width: window.innerWidth, height: window.innerHeight };
+}
+
 export function useWindowSize() {
-  const [size, setSize] = useState({
-    width:  window.innerWidth,
-    height: window.innerHeight,
-  });
+  const [size, setSize] = useState(getWindowSize);
 
   useEffect(() => {
     let rafId;
@@ -22,7 +26,7 @@ export function useWindowSize() {
     const handleResize = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
-        setSize({ width: window.innerWidth, height: window.innerHeight });
+        setSize(getWindowSize());
       });
     };
 

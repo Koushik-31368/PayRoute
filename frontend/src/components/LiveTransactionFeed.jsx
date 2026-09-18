@@ -1,5 +1,6 @@
-import React from 'react';
+﻿import React from 'react';
 import { formatINR, formatTime } from '../utils/format';
+import { FEED_MAX_ITEMS } from '../utils/constants';
 import './LiveTransactionFeed.css';
 
 const STATUS_META = {
@@ -14,8 +15,6 @@ const RESULT_COLOR = {
   TIMEOUT:  'var(--amber)',
   SKIPPED:  'var(--text-muted)',
 };
-
-// formatINR and formatTime imported from utils/format.js
 
 /**
  * A single transaction row, showing:
@@ -54,7 +53,7 @@ function TransactionRow({ txn, isNew }) {
               <span style={{ color: RESULT_COLOR[a.result] }}>
                 {a.provider?.replace('PROVIDER_', 'P')}
               </span>
-              <span className="txn-attempt-sep">·</span>
+              <span className="txn-attempt-sep">→</span>
               <span style={{ color: RESULT_COLOR[a.result], fontSize: '10px' }}>
                 {a.result}
               </span>
@@ -75,7 +74,7 @@ function TransactionRow({ txn, isNew }) {
 }
 
 /**
- * Scrollable transaction feed — newest at top, max 200 items.
+ * Scrollable transaction feed – newest at top, max FEED_MAX_ITEMS items.
  */
 export default function LiveTransactionFeed({ transactions }) {
   if (transactions.length === 0) {
@@ -90,7 +89,7 @@ export default function LiveTransactionFeed({ transactions }) {
 
   return (
     <div className="txn-feed">
-      {transactions.slice(0, 200).map((txn, idx) => (
+      {transactions.slice(0, FEED_MAX_ITEMS).map((txn, idx) => (
         <TransactionRow key={txn.id} txn={txn} isNew={idx === 0} />
       ))}
     </div>

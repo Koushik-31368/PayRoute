@@ -8,13 +8,14 @@
  * Useful for detecting when a counter increases (e.g. highlight when
  * new transactions arrive) or detecting direction of change.
  *
- * @param {any} value - The value to track
+ * @param {any}  value        - The value to track
+ * @param {any}  initialValue - Value returned on the very first render (default: undefined)
  */
 
 import { useRef, useEffect } from 'react';
 
-export function usePrevious(value) {
-  const ref = useRef(undefined);
+export function usePrevious(value, initialValue = undefined) {
+  const ref = useRef(initialValue);
 
   useEffect(() => {
     ref.current = value;

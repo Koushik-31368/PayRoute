@@ -8,7 +8,7 @@
 /**
  * Format a number as Indian Rupee currency.
  * @param {number} amount
- * @param {boolean} [compact=false] - Use compact notation for large amounts (e.g. â‚¹1.2L)
+ * @param {boolean} [compact=false] - Use compact notation for large amounts (e.g. ₹11.2L)
  */
 export function formatINR(amount, compact = false) {
   return new Intl.NumberFormat('en-IN', {
@@ -63,10 +63,12 @@ export function timeAgo(isoString) {
 }
 
 /**
- * Format a latency in milliseconds to a human-readable string.
+ * Format a latency value in milliseconds to a human-readable string.
+ * Examples: 450 -> "450ms", 1200 -> "1.2s"
  * @param {number} ms
+ * @returns {string}
  */
 export function formatLatency(ms) {
-  if (ms < 1000) return `ms`;
-  return `s`;
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms / 1000).toFixed(1)}s`;
 }

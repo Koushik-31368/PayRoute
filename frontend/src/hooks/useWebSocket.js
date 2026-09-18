@@ -1,6 +1,7 @@
-import { useEffect, useRef, useCallback } from 'react';
+﻿import { useEffect, useRef, useCallback } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { WS_RECONNECT_DELAY_MS } from '../utils/constants';
 
 /**
  * Reusable WebSocket hook using STOMP over SockJS.
@@ -14,7 +15,7 @@ import SockJS from 'sockjs-client';
  * Automatically reconnects on disconnect (STOMP client handles this).
  * Cleans up the connection when the component unmounts.
  *
- * @param {string[]} topics  - STOMP topics to subscribe to
+ * @param {string[]} topics    - STOMP topics to subscribe to
  * @param {function} onMessage - Called with (topic, parsedMessageBody) on each message
  */
 export function useWebSocket({ topics, onMessage }) {
@@ -30,9 +31,9 @@ export function useWebSocket({ topics, onMessage }) {
     const wsUrl = import.meta.env.VITE_WS_URL || '/ws';
 
     const client = new Client({
-      // SockJS factory — provides HTTP fallback for environments that block WS
+      // SockJS factory – provides HTTP fallback for environments that block WS
       webSocketFactory: () => new SockJS(wsUrl),
-      reconnectDelay: 3000,
+      reconnectDelay: WS_RECONNECT_DELAY_MS,
       onConnect: () => {
         topics.forEach(topic => {
           client.subscribe(topic, (frame) => {
@@ -56,5 +57,5 @@ export function useWebSocket({ topics, onMessage }) {
     return () => {
       client.deactivate();
     };
-  }, []); // Only connect once — topics and callback changes handled via ref
+  }, []); // Only connect once – topics and callback changes handled via ref
 }
