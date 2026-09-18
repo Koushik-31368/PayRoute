@@ -1,4 +1,4 @@
-package com.payroute.provider;
+﻿package com.payroute.provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Simulates provider behaviour: artificial latency + random outcome.
  *
  * Each provider has a configured failure rate (probability of FAILURE),
- * a timeout rate (probability of TIMEOUT), and a latency range (min–max ms).
+ * a timeout rate (probability of TIMEOUT), and a latency range (minâ€“max ms).
  *
  * Design note:
  *   In a real system, calling Thread.sleep() on a request thread blocks the
@@ -33,7 +33,7 @@ public class ProviderSimulator {
     @Value("${payroute.providers.PROVIDER_C.failure-rate:0.40}")
     private double providerCFailureRate;
 
-    // Timeout rates (separate from failure — provider is slow, not wrong)
+    // Timeout rates (separate from failure â€” provider is slow, not wrong)
     @Value("${payroute.providers.PROVIDER_A.timeout-rate:0.05}")
     private double providerATimeoutRate;
 
@@ -43,7 +43,7 @@ public class ProviderSimulator {
     @Value("${payroute.providers.PROVIDER_C.timeout-rate:0.15}")
     private double providerCTimeoutRate;
 
-    // Latency range (ms) — simulates real network variance
+    // Latency range (ms) â€” simulates real network variance
     @Value("${payroute.providers.PROVIDER_A.min-latency-ms:50}")
     private int providerAMinLatency;
 
@@ -70,7 +70,8 @@ public class ProviderSimulator {
      * @param provider  Provider identifier ("PROVIDER_A", etc.)
      * @param amount    Payment amount (not used in simulation, but logged for realism)
      * @param txnId     Transaction ID (same)
-     * @return          {@link ProviderResult} containing outcome and actual latency
+     * @return          {@link ProviderResult} containing the outcome and measured latency
+     * @throws InterruptedException if the thread is interrupted during simulated latency sleep containing outcome and actual latency
      */
     public ProviderResult simulate(String provider, BigDecimal amount, String txnId)
             throws InterruptedException {
@@ -114,3 +115,4 @@ public class ProviderSimulator {
     private record ProviderConfig(double failureRate, double timeoutRate,
                                    int minLatency, int maxLatency) {}
 }
+
