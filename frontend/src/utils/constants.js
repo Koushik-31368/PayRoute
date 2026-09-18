@@ -51,3 +51,6 @@ export const PROVIDER_NAMES = ['PROVIDER_A', 'PROVIDER_B', 'PROVIDER_C'];
 
 /** Default payment amount pre-filled in the submit form (INR) */
 export const DEFAULT_AMOUNT = 5000;
+
+/** Default source/customer-id pre-filled in the submit form */
+export const DEFAULT_SOURCE = 'customer-001';
