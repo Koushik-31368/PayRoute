@@ -1,4 +1,5 @@
 ﻿/**
+ * @module format
  * Shared formatting utilities used across multiple components.
  *
  * Centralising these prevents drift where LiveTransactionFeed and AnomalyLog
@@ -72,3 +73,4 @@ export function formatLatency(ms) {
   if (ms < 1000) return `${ms}ms`;
   return `${(ms / 1000).toFixed(1)}s`;
 }
+
