@@ -9,6 +9,7 @@
  * new transactions arrive) or detecting direction of change.
  *
  * @param {any}  value        - The value to track
+ * @since 1.0.0
  * @param {any}  initialValue - Value returned on the very first render (default: undefined)
  */
 
@@ -23,3 +24,4 @@ export function usePrevious(value, initialValue = undefined) {
 
   return ref.current;
 }
+
