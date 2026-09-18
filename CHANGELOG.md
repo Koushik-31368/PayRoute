@@ -48,6 +48,9 @@ and [Conventional Commits](https://www.conventionalcommits.org/) for commit mess
 - `LiveTransactionFeed` â€” refactored to use shared `formatTime` / `formatINR` from `utils/format.js`
 - `App.jsx` â€” payment form now persists amount and source via `useLocalStorage`
 
+### Breaking Changes
+- None
+
 ### Fixed
 - Nothing yet
 
@@ -84,4 +87,5 @@ and [Conventional Commits](https://www.conventionalcommits.org/) for commit mess
 - frontend/src/utils/format.js formatLatency() helper
 - backend/.env.example for environment configuration
 - .editorconfig for consistent code formatting
+
 
