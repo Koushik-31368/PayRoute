@@ -1,4 +1,4 @@
-package com.payroute.circuitbreaker;
+﻿package com.payroute.circuitbreaker;
 
 import com.payroute.transaction.AttemptResult;
 import lombok.Getter;
@@ -14,25 +14,25 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Manual circuit breaker implementation for a single provider.
  *
- * ── Rolling Window ────────────────────────────────────────────────────────────
+ * â”€â”€ Rolling Window â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  * We track the last N attempt results in a Deque (double-ended queue). When a
  * new result arrives, it's added to the tail; if the deque exceeds capacity,
  * the oldest result is removed from the head. This gives us an O(1) sliding
  * window without any scheduled cleanup jobs.
  *
- * ── Thread Safety ─────────────────────────────────────────────────────────────
+ * â”€â”€ Thread Safety â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  * State transitions must be atomic. A naive synchronized(this) on every method
  * would work, but we use a ReentrantLock so the HALF_OPEN probe logic (allow
  * exactly one request through) can hold the lock across the check-and-set
  * without risk of two concurrent requests both thinking they're the probe.
  *
- * ── Why not Resilience4j? ─────────────────────────────────────────────────────
+ * â”€â”€ Why not Resilience4j? â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  * Resilience4j is excellent in production, but it hides exactly the state
  * machine logic you need to understand. This implementation makes every
  * transition explicit and inspectable. Once you understand this, Resilience4j
  * configuration will be obvious.
  *
- * ── HALF_OPEN probe semantics ─────────────────────────────────────────────────
+ * â”€â”€ HALF_OPEN probe semantics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  * When state is HALF_OPEN, {@link #allowRequest()} returns true exactly once
  * (for the probe request), then returns false for all subsequent calls until
  * the probe result is recorded. The {@code probeInFlight} flag enforces this.
@@ -41,7 +41,7 @@ public class CircuitBreaker {
 
     private static final Logger log = LoggerFactory.getLogger(CircuitBreaker.class);
 
-    // ── Configuration (injected at construction, read from application.properties) ──
+    // â”€â”€ Configuration (injected at construction, read from application.properties) â”€â”€
 
     /** Provider identifier, e.g. "PROVIDER_A". */
     @Getter private final String providerName;
@@ -61,7 +61,7 @@ public class CircuitBreaker {
      */
     private final long cooldownSeconds;
 
-    // ── Mutable State (protected by lock) ─────────────────────────────────────
+    // â”€â”€ Mutable State (protected by lock) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /** Current state of the breaker. AtomicReference for visibility. */
     private final AtomicReference<CircuitBreakerState> state =
@@ -89,7 +89,7 @@ public class CircuitBreaker {
     /** Protects all mutable state. */
     private final ReentrantLock lock = new ReentrantLock();
 
-    // ── Constructor ───────────────────────────────────────────────────────────
+    // â”€â”€ Constructor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public CircuitBreaker(String providerName, int windowSize,
                           double failureThreshold, long cooldownSeconds) {
@@ -99,15 +99,15 @@ public class CircuitBreaker {
         this.cooldownSeconds = cooldownSeconds;
     }
 
-    // ── Public API ────────────────────────────────────────────────────────────
+    // â”€â”€ Public API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Returns true if a request to this provider should be allowed.
      *
-     * CLOSED    → always allow.
-     * OPEN      → deny, unless the cooldown has expired, in which case
+     * CLOSED    â†’ always allow.
+     * OPEN      â†’ deny, unless the cooldown has expired, in which case
      *             transition to HALF_OPEN and allow the first probe.
-     * HALF_OPEN → allow only if no probe is already in-flight.
+     * HALF_OPEN â†’ allow only if no probe is already in-flight.
      */
     public boolean allowRequest() {
         lock.lock();
@@ -143,11 +143,11 @@ public class CircuitBreaker {
      * This is called AFTER the provider responds (or times out). It drives
      * all state transitions:
      *
-     *   CLOSED    + failure → update window, check threshold, maybe → OPEN
-     *   CLOSED    + success → update window (good signal)
-     *   HALF_OPEN + success → clear window, → CLOSED  (provider recovered!)
-     *   HALF_OPEN + failure → → OPEN (reset cooldown, provider still sick)
-     *   OPEN                → should not happen (requests are rejected), ignore
+     *   CLOSED    + failure â†’ update window, check threshold, maybe â†’ OPEN
+     *   CLOSED    + success â†’ update window (good signal)
+     *   HALF_OPEN + success â†’ clear window, â†’ CLOSED  (provider recovered!)
+     *   HALF_OPEN + failure â†’ â†’ OPEN (reset cooldown, provider still sick)
+     *   OPEN                â†’ should not happen (requests are rejected), ignore
      */
     public void recordResult(AttemptResult result) {
         lock.lock();
@@ -159,14 +159,14 @@ public class CircuitBreaker {
             if (currentState == CircuitBreakerState.HALF_OPEN) {
                 probeInFlight = false; // Probe has returned, clear the flag
                 if (!isFailure) {
-                    // Provider responded successfully — it has recovered.
+                    // Provider responded successfully â€” it has recovered.
                     // Reset the window (stale failures from the sick period
                     // shouldn't penalise the now-healthy provider).
                     window.clear();
                     failureCount = 0;
                     transitionTo(CircuitBreakerState.CLOSED);
                 } else {
-                    // Provider is still unhealthy — go back to OPEN and restart cooldown.
+                    // Provider is still unhealthy â€” go back to OPEN and restart cooldown.
                     transitionTo(CircuitBreakerState.OPEN);
                 }
                 return;
@@ -178,7 +178,7 @@ public class CircuitBreaker {
                 return;
             }
 
-            // State is CLOSED — update the rolling window.
+            // State is CLOSED â€” update the rolling window.
             addToWindow(isFailure);
 
             // Only evaluate the threshold once we have a full window.
@@ -187,9 +187,8 @@ public class CircuitBreaker {
             if (window.size() >= windowSize) {
                 double failureRate = (double) failureCount / window.size();
                 if (failureRate >= failureThreshold) {
-                    log.warn("[CircuitBreaker] {} failure rate {:.0f}% >= threshold {:.0f}% — OPENING",
-                            providerName, String.format("%.0f", failureRate * 100),
-                            String.format("%.0f", failureThreshold * 100));
+                    log.warn("[CircuitBreaker] {} failure rate {}% >= threshold {}% - OPENING",
+                            providerName, (long)(failureRate * 100), (long)(failureThreshold * 100));
                     transitionTo(CircuitBreakerState.OPEN);
                 }
             }
@@ -227,7 +226,7 @@ public class CircuitBreaker {
         }
     }
 
-    // ── Private Helpers ───────────────────────────────────────────────────────
+    // â”€â”€ Private Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Adds a result to the rolling window, evicting the oldest entry if
@@ -255,6 +254,7 @@ public class CircuitBreaker {
         if (newState == CircuitBreakerState.OPEN) {
             openedAt = Instant.now();
         }
-        log.info("[CircuitBreaker] {} transitioned: {} → {}", providerName, prev, newState);
+        log.info("[CircuitBreaker] {} transitioned: {} â†’ {}", providerName, prev, newState);
     }
 }
+

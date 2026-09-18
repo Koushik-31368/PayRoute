@@ -1,4 +1,4 @@
-package com.payroute.anomaly;
+﻿package com.payroute.anomaly;
 
 import com.payroute.transaction.Transaction;
 import com.payroute.transaction.TransactionRepository;
@@ -15,26 +15,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Rule-based anomaly detection — no ML, just configurable thresholds.
+ * Rule-based anomaly detection - no ML, just configurable thresholds.
  *
  * Called AFTER a transaction is persisted (not before) so the transaction
  * itself is always recorded regardless of anomaly status.
  *
  * Three checks are run:
  *
- *  1. LARGE_AMOUNT     — amount > threshold (default: 100,000)
- *  2. BURST_FROM_SOURCE — source submitted > burstLimit txns in burstWindowSeconds
- *  3. REPEATED_FAILURES — source had > failureLimit failed txns in last failureWindowSeconds
+ *  1. LARGE_AMOUNT      - amount > threshold (default: 100,000)
+ *  2. BURST_FROM_SOURCE - source submitted > burstLimit txns in burstWindowSeconds
+ *  3. REPEATED_FAILURES - source had > failureLimit failed txns in last failureWindowSeconds
  *
- * @Transactional(propagation = REQUIRES_NEW) — why?
+ * @Transactional(propagation = REQUIRES_NEW) - why?
  *   We want anomaly detection to succeed or fail independently of the main
  *   transaction commit. If anomaly detection throws (e.g. DB hiccup), we
- *   don't want to rollback the payment record. REQUIRES_NEW suspends the
+ *   do not want to rollback the payment record. REQUIRES_NEW suspends the
  *   calling transaction and runs anomaly detection in its own transaction.
  */
 @Service
 @RequiredArgsConstructor
 public class AnomalyDetectionService {
+
+    // ── Reason message format strings ─────────────────────────────────────────
+    private static final String REASON_LARGE_AMOUNT =
+            "Amount %.2f exceeds threshold %.2f";
+    private static final String REASON_BURST =
+            "Source '%s' submitted %d transactions in the last %ds (limit: %d)";
+    private static final String REASON_REPEATED_FAILURES =
+            "Source '%s' had %d failed transactions in the last %ds";
 
     private final AnomalyRepository anomalyRepository;
     private final TransactionRepository transactionRepository;
@@ -58,7 +66,8 @@ public class AnomalyDetectionService {
      * Run all anomaly checks for a completed transaction and persist any
      * violations found.
      *
-     * @return list of Anomaly records created (may be empty)
+     * @param transaction the fully-persisted transaction to evaluate
+     * @return list of {@link Anomaly} records created (may be empty)
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Anomaly> checkAndFlag(Transaction transaction) {
@@ -68,7 +77,7 @@ public class AnomalyDetectionService {
         if (transaction.getAmount().compareTo(largeAmountThreshold) > 0) {
             if (!alreadyFlagged(transaction.getId(), AnomalyType.LARGE_AMOUNT)) {
                 anomalies.add(buildAnomaly(transaction, AnomalyType.LARGE_AMOUNT,
-                        String.format("Amount %.2f exceeds threshold %.2f",
+                        String.format(REASON_LARGE_AMOUNT,
                                 transaction.getAmount(), largeAmountThreshold)));
             }
         }
@@ -80,7 +89,7 @@ public class AnomalyDetectionService {
         if (recentCount > burstLimit) {
             if (!alreadyFlagged(transaction.getId(), AnomalyType.BURST_FROM_SOURCE)) {
                 anomalies.add(buildAnomaly(transaction, AnomalyType.BURST_FROM_SOURCE,
-                        String.format("Source '%s' submitted %d transactions in the last %ds (limit: %d)",
+                        String.format(REASON_BURST,
                                 transaction.getSource(), recentCount, burstWindowSeconds, burstLimit)));
             }
         }
@@ -92,7 +101,7 @@ public class AnomalyDetectionService {
         if (recentFailures.size() >= failureLimit) {
             if (!alreadyFlagged(transaction.getId(), AnomalyType.REPEATED_FAILURES)) {
                 anomalies.add(buildAnomaly(transaction, AnomalyType.REPEATED_FAILURES,
-                        String.format("Source '%s' had %d failed transactions in the last %ds",
+                        String.format(REASON_REPEATED_FAILURES,
                                 transaction.getSource(), recentFailures.size(), failureWindowSeconds)));
             }
         }
