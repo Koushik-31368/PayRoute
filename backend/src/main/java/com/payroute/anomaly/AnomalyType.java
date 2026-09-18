@@ -20,8 +20,10 @@
  * Adding a new rule: add an enum constant here, implement the check in
  * {@link AnomalyDetectionService#checkAndFlag}, and update the frontend TYPE_META map.
  */
+/** @since 1.0.0 */
 public enum AnomalyType {
     LARGE_AMOUNT,
     BURST_FROM_SOURCE,
     REPEATED_FAILURES
 }
+
