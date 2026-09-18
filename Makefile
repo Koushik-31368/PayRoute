@@ -1,4 +1,5 @@
-﻿# PayRoute Development Makefile
+﻿# Usage: make <target>
+# PayRoute Development Makefile
 
 .PHONY: dev-backend dev-frontend build-backend install docker-up docker-down
 
@@ -33,3 +34,4 @@ logs:
 ## Audit frontend dependencies for vulnerabilities
 audit:
 	cd frontend && npm audit
+
