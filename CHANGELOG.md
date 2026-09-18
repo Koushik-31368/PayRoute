@@ -7,6 +7,33 @@ and [Conventional Commits](https://www.conventionalcommits.org/) for commit mess
 
 ---
 
+## [Unreleased - 2026-09-18]
+
+### Added
+- utils/constants.js - Added WS_RECONNECT_DELAY_MS, CB_POLL_INTERVAL_MS, BURST_STAGGER_MS, and BURST_SOURCE constants
+- usePrevious hook - Added optional initialValue parameter for cleaner first-render behaviour
+- ite.config.js - Added explicit uild.sourcemap: true for production debugging support
+- package.json - Added lint:fix script for auto-fixing lint issues with oxlint
+
+### Changed
+- utils/format.js - Fixed ormatLatency bug: now correctly formats values as 450ms / 1.2s instead of bare units
+- AnomalyLog - Now imports ANOMALY_MAX_ITEMS constant instead of hardcoded 100
+- LiveTransactionFeed - Now imports FEED_MAX_ITEMS constant instead of hardcoded 200
+- SimulateBurstButton - Extracted BURST_STAGGER_MS and BURST_SOURCE constants; added ria-label and ole="progressbar" for accessibility
+- useWebSocket - Uses WS_RECONNECT_DELAY_MS constant instead of hardcoded 3000
+- useWindowSize - Now SSR-safe; falls back to { width: 0, height: 0 } when window is unavailable
+- useLocalStorage - Cleaned up doc comments for clarity
+- useDebounce - Simplified cleanup callback (removed unnecessary arrow-function wrapper)
+- useCountUp - Improved JSDoc with @returns tag; clarified easing description
+- useThrottle - Added missing @returns tag to JSDoc
+- AnomalyDetectionService - Extracted magic reason format strings to private constants
+- AnomalyType - Enhanced Javadoc with extensibility guide
+- CircuitBreaker - Fixed invalid SLF4J log format string ({:.0f} -> {})
+- TransactionRequest - Added @DecimalMax(10000000) upper bound validation
+- TransactionStatus - Improved Javadoc with lifecycle ordering note
+- pplication.properties - Added per-property inline comments; rewrote header as ASCII-safe
+- .gitignore - Added Python env/, __pycache__/, *.pyc entries
+
 ## [Unreleased]
 
 ### Added
@@ -57,3 +84,4 @@ and [Conventional Commits](https://www.conventionalcommits.org/) for commit mess
 - frontend/src/utils/format.js formatLatency() helper
 - backend/.env.example for environment configuration
 - .editorconfig for consistent code formatting
+

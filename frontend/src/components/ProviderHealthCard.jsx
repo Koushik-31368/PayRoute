@@ -1,10 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 import './ProviderHealthCard.css';
 
 const STATE_META = {
-  CLOSED:    { label: 'Healthy',   color: 'var(--green)',  dot: '●', pulse: false },
-  HALF_OPEN: { label: 'Probing',   color: 'var(--amber)',  dot: '●', pulse: true  },
-  OPEN:      { label: 'Open',      color: 'var(--red)',    dot: '●', pulse: false },
+  CLOSED:    { label: 'Healthy',  color: 'var(--green)',  dot: '🟢', pulse: false },
+  HALF_OPEN: { label: 'Probing',  color: 'var(--amber)',  dot: '🟡', pulse: true  },
+  OPEN:      { label: 'Open',     color: 'var(--red)',    dot: '🔴', pulse: false },
 };
 
 const PROVIDER_LABELS = {
@@ -15,16 +15,22 @@ const PROVIDER_LABELS = {
 
 /**
  * Displays the health of a single provider:
- *   - Circuit breaker state (color-coded)
- *   - Failure rate (from rolling window)
- *   - Success rate bar
+ *   - Circuit breaker state (color-coded with tooltip)
+ *   - Success rate bar (over the last windowSamples attempts)
  *   - Average latency
+ *   - Failure rate alert when unhealthy
  */
 export default function ProviderHealthCard({ provider, state, failureRate, avgLatency, windowSamples }) {
   const meta = STATE_META[state] || STATE_META.CLOSED;
   const label = PROVIDER_LABELS[provider] || { name: provider, subtitle: '' };
   const successRate = Math.max(0, 100 - failureRate).toFixed(1);
   const isUnhealthy = state === 'OPEN' || state === 'HALF_OPEN';
+
+  const stateTooltip = {
+    CLOSED:    'CLOSED: requests are flowing normally',
+    HALF_OPEN: 'HALF_OPEN: sending a probe request to check if provider has recovered',
+    OPEN:      'OPEN: provider is unhealthy; requests are being blocked until cooldown expires',
+  }[state] || state;
 
   return (
     <div className={`health-card health-card--${state.toLowerCase()}`}>
@@ -33,7 +39,7 @@ export default function ProviderHealthCard({ provider, state, failureRate, avgLa
           <span className="health-card__name">{label.name}</span>
           <span className="health-card__subtitle">{label.subtitle}</span>
         </div>
-        <div className="health-card__state" style={{ color: meta.color }}>
+        <div className="health-card__state" style={{ color: meta.color }} title={stateTooltip}>
           <span className={`health-card__dot ${meta.pulse ? 'pulse' : ''}`} style={{ color: meta.color }}>
             {meta.dot}
           </span>
@@ -56,7 +62,7 @@ export default function ProviderHealthCard({ provider, state, failureRate, avgLa
 
       {isUnhealthy && (
         <div className="health-card__alert">
-          ⚠ Failure rate: {failureRate.toFixed(1)}%
+          ⚠️ Failure rate: {failureRate.toFixed(1)}%
         </div>
       )}
 
@@ -69,7 +75,7 @@ export default function ProviderHealthCard({ provider, state, failureRate, avgLa
         </div>
         <div className="health-card__stat">
           <span className="health-card__stat-value">
-            {avgLatency ? `${Math.round(avgLatency)}ms` : '—'}
+            {avgLatency ? `${Math.round(avgLatency)}ms` : '–'}
           </span>
           <span className="health-card__stat-label">Avg Latency</span>
         </div>
