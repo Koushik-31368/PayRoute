@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from 'react';
 
+// @since 1.0.0
 export function useOnlineStatus() {
   const [isOnline, setIsOnline] = useState(() => navigator.onLine);
 
@@ -28,3 +29,4 @@ export function useOnlineStatus() {
 
   return isOnline;
 }
+
