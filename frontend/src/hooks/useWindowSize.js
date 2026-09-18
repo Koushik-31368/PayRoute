@@ -17,6 +17,7 @@ function getWindowSize() {
   return { width: window.innerWidth, height: window.innerHeight };
 }
 
+// @since 1.0.0
 export function useWindowSize() {
   const [size, setSize] = useState(getWindowSize);
 
@@ -40,3 +41,4 @@ export function useWindowSize() {
 
   return size;
 }
+
