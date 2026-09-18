@@ -18,6 +18,7 @@ import { WS_RECONNECT_DELAY_MS } from '../utils/constants';
  * @param {string[]} topics    - STOMP topics to subscribe to
  * @param {function} onMessage - Called with (topic, parsedMessageBody) on each message
  */
+// @since 1.0.0
 export function useWebSocket({ topics, onMessage }) {
   const clientRef = useRef(null);
   const onMessageRef = useRef(onMessage);
@@ -59,3 +60,4 @@ export function useWebSocket({ topics, onMessage }) {
     };
   }, []); // Only connect once – topics and callback changes handled via ref
 }
+
