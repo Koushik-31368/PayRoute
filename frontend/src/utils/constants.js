@@ -57,3 +57,6 @@ export const DEFAULT_SOURCE = 'customer-001';
 
 /** Maximum transactions allowed in a single burst simulation */
 export const MAX_BURST_COUNT = 100;
+
+/** Minimum transactions required for a burst simulation */
+export const MIN_BURST_COUNT = 5;
