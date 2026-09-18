@@ -60,3 +60,6 @@ export const MAX_BURST_COUNT = 100;
 
 /** Minimum transactions required for a burst simulation */
 export const MIN_BURST_COUNT = 5;
+
+/** Human-readable label shown in the UI for the OPEN circuit breaker state */
+export const CB_OPEN_LABEL = 'Circuit Open';
