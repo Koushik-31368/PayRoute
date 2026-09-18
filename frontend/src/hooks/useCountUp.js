@@ -9,6 +9,7 @@
  *
  * @param {number} target   - The final value to count up to
  * @param {number} duration - Animation duration in milliseconds (default: 600)
+ * @since 1.0.0
  * @returns {number} The current animated value (rounded to the nearest integer)
  */
 
@@ -49,3 +50,4 @@ export function useCountUp(target, duration = 600) {
 
   return current;
 }
+
