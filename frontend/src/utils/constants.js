@@ -54,3 +54,6 @@ export const DEFAULT_AMOUNT = 5000;
 
 /** Default source/customer-id pre-filled in the submit form */
 export const DEFAULT_SOURCE = 'customer-001';
+
+/** Maximum transactions allowed in a single burst simulation */
+export const MAX_BURST_COUNT = 100;
