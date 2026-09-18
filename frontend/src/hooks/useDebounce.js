@@ -9,6 +9,7 @@
  *
  * @param {any}    value  - The value to debounce
  * @param {number} delay  - Delay in milliseconds (default: 300)
+ * @since 1.0.0
  * @returns {any} The debounced value
  */
 
@@ -24,3 +25,4 @@ export function useDebounce(value, delay = 300) {
 
   return debouncedValue;
 }
+
