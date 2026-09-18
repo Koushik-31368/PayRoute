@@ -32,3 +32,5 @@ export default defineConfig({
     sourcemap: true,
   },
 })
+
+// end of vite.config.js
