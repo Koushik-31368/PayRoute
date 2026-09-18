@@ -45,3 +45,6 @@ export const BURST_STAGGER_MS = 80;
 
 /** Fixed source identifier used by the burst simulator */
 export const BURST_SOURCE = 'burst-demo';
+
+/** Known provider identifiers returned by the backend */
+export const PROVIDER_NAMES = ['PROVIDER_A', 'PROVIDER_B', 'PROVIDER_C'];
