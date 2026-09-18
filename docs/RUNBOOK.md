@@ -50,3 +50,8 @@ curl http://localhost:8080/api/circuit-breakers
 curl http://localhost:8080/api/anomalies
 curl http://localhost:8080/api/transactions
 ```
+
+
+## Health Check
+
+The backend exposes a health endpoint at `GET /actuator/health` (if Spring Actuator is enabled).
