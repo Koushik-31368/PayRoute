@@ -1,5 +1,5 @@
 ﻿/**
- * useDebounce - returns a debounced version of alue that only updates
+ * useDebounce - returns a debounced version of value that only updates
  * after delay milliseconds have elapsed since the last change.
  *
  * Usage:
@@ -9,6 +9,7 @@
  *
  * @param {any}    value  - The value to debounce
  * @param {number} delay  - Delay in milliseconds (default: 300)
+ * @returns {any} The debounced value
  */
 
 import { useState, useEffect } from 'react';
@@ -17,13 +18,8 @@ export function useDebounce(value, delay = 300) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    const timer = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timer);
   }, [value, delay]);
 
   return debouncedValue;

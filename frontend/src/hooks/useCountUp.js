@@ -1,13 +1,15 @@
 ﻿/**
- * useCountUp - animates a number from 0 to 	arget over duration ms.
+ * useCountUp - animates a number from its previous value to target over duration ms.
  *
  * Usage:
  *   const displayValue = useCountUp(totalTransactions, 600);
  *
- * Useful for making stat counters feel alive when they first load.
+ * Useful for making stat counters feel alive when they first load or update.
+ * Uses an "ease-out cubic" easing function so the animation decelerates naturally.
  *
  * @param {number} target   - The final value to count up to
  * @param {number} duration - Animation duration in milliseconds (default: 600)
+ * @returns {number} The current animated value (rounded to the nearest integer)
  */
 
 import { useState, useEffect, useRef } from 'react';
@@ -29,7 +31,7 @@ export function useCountUp(target, duration = 600) {
       if (!startRef.current) startRef.current = timestamp;
       const elapsed  = timestamp - startRef.current;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
+      // Ease out cubic: decelerates toward the end
       const eased    = 1 - Math.pow(1 - progress, 3);
       setCurrent(Math.round(from + (target - from) * eased));
 

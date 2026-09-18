@@ -1,5 +1,5 @@
-/**
- * useThrottle — returns a throttled version of a callback that fires at most
+﻿/**
+ * useThrottle - returns a throttled version of a callback that fires at most
  * once every `delay` milliseconds, regardless of how many times it is called.
  *
  * Usage:
@@ -8,8 +8,9 @@
  * Useful for preventing accidental double-clicks on payment submit and
  * limiting burst simulator trigger frequency.
  *
- * @param {function} fn     - The function to throttle
- * @param {number}   delay  - Minimum milliseconds between invocations (default: 1000)
+ * @param {function} fn    - The function to throttle
+ * @param {number}  delay  - Minimum milliseconds between invocations (default: 1000)
+ * @returns {function} A stable throttled wrapper around fn
  */
 
 import { useRef, useCallback } from 'react';

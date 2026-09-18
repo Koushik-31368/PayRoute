@@ -23,7 +23,7 @@ Thumbs.db
 .env
 .env.local
 
-# Maven wrapper
+# Maven wrapper (project uses system mvn)
 .mvn/
 mvnw
 mvnw.cmd
@@ -33,3 +33,9 @@ mvnw.cmd
 
 # Compiled classes already excluded via target/
 backend/target/classes/
+
+# Python virtual environments (used by tooling scripts)
+venv/
+.venv/
+__pycache__/
+*.pyc
