@@ -1,4 +1,4 @@
-package com.payroute.config;
+﻿package com.payroute.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,14 +10,14 @@ import org.springframework.web.filter.CorsFilter;
  * Global CORS configuration.
  *
  * Allowed origins:
- *   1. http://localhost:*  — local dev (React Vite server, Docker frontend)
- *   2. CORS_ALLOWED_ORIGIN env var — set this on Render/Railway/etc to your
+ *   1. http://localhost:*  â€” local dev (React Vite server, Docker frontend)
+ *   2. CORS_ALLOWED_ORIGIN env var â€” set this on Render/Railway/etc to your
  *      Vercel frontend URL (e.g. https://pay-route.vercel.app).
  *      Falls back to the default Vercel URL if the env var is not set.
  *
  * Why env var instead of hardcoding?
  *   Keeps credentials out of source code and lets you change the allowed
- *   origin without a redeploy of the backend — just update the env var.
+ *   origin without a redeploy of the backend â€” just update the env var.
  *
  * SockJS note:
  *   SockJS makes its initial handshake as a plain HTTP request (/ws/info),
@@ -26,6 +26,7 @@ import org.springframework.web.filter.CorsFilter;
  *   even though WebSocketConfig already sets setAllowedOriginPatterns("*").
  */
 @Configuration
+/** @since 1.0.0 */
 public class AppConfig {
 
     @Bean
@@ -36,7 +37,7 @@ public class AppConfig {
         // Always allow local dev origins
         config.addAllowedOriginPattern("http://localhost:*");
 
-        // Production frontend — read from env var, fall back to the real Vercel URL.
+        // Production frontend â€” read from env var, fall back to the real Vercel URL.
         // To change the allowed origin without a redeploy, update CORS_ALLOWED_ORIGIN
         // in your backend hosting platform's environment variables (e.g. Render).
         String productionOrigin = System.getenv()
@@ -51,3 +52,4 @@ public class AppConfig {
         return new CorsFilter(source);
     }
 }
+
