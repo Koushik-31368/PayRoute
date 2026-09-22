@@ -1,4 +1,4 @@
-package com.payroute.circuitbreaker;
+﻿package com.payroute.circuitbreaker;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,12 +14,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * Why a registry (not individual @Beans)?
  *   The number of providers is dynamic from config, and we need to iterate
  *   all of them in the routing engine. A Map keyed by provider name is
- *   the cleanest pattern here — same approach used by Resilience4j internals.
+ *   the cleanest pattern here â€” same approach used by Resilience4j internals.
  *
  * This is a @Component singleton. It reads provider names and circuit breaker
  * settings from application.properties at startup.
  */
 @Component
+/** @since 1.0.0 */
 public class CircuitBreakerRegistry {
 
     /** Provider names, e.g. ["PROVIDER_A", "PROVIDER_B", "PROVIDER_C"] */
@@ -35,7 +36,7 @@ public class CircuitBreakerRegistry {
     @Value("${payroute.circuit-breaker.cooldown-seconds:30}")
     private long cooldownSeconds;
 
-    /** Lazily initialised map — populated on first access to getBreaker(). */
+    /** Lazily initialised map â€” populated on first access to getBreaker(). */
     private final Map<String, CircuitBreaker> breakers = new ConcurrentHashMap<>();
 
     /**
@@ -55,8 +56,9 @@ public class CircuitBreakerRegistry {
         return breakers.values();
     }
 
-    /** Ordered list of providers — used by the routing engine. */
+    /** Ordered list of providers â€” used by the routing engine. */
     public List<String> getProviderNames() {
         return providerNames;
     }
 }
+
