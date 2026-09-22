@@ -72,3 +72,6 @@ export const PROVIDER_GRID_COLS = 3;
 
 /** Default duration (ms) for transient toast/notification messages */
 export const TOAST_DURATION_MS = 3000;
+
+/** Maximum characters shown in an error message tooltip */
+export const MAX_ERROR_MSG_LEN = 120;
