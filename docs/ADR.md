@@ -57,3 +57,7 @@
 **Decision:** Use PostgreSQL via Docker from the start. docker-compose.yml provides a ready-to-run DB with no setup friction.
 
 **Consequences:** Requires Docker. But the schema is production-realistic from day one.
+
+
+---
+_Last reviewed: 2026-09-22_
