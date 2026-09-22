@@ -1,4 +1,4 @@
-package com.payroute.anomaly;
+﻿package com.payroute.anomaly;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * GET /api/anomalies — returns the 100 most recent flagged transactions.
+ * GET /api/anomalies â€” returns the 100 most recent flagged transactions.
  * Consumed by the frontend anomaly log panel.
  */
 @RestController
 @RequestMapping("/api/anomalies")
 @RequiredArgsConstructor
+/** @since 1.0.0 */
 public class AnomalyController {
 
     private final AnomalyRepository anomalyRepository;
@@ -24,3 +25,4 @@ public class AnomalyController {
         return ResponseEntity.ok(anomalyRepository.findTop100ByOrderByDetectedAtDesc());
     }
 }
+
