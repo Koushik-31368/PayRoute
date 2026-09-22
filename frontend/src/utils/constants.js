@@ -78,3 +78,6 @@ export const MAX_ERROR_MSG_LEN = 120;
 
 /** Default timeout (ms) for REST API fetch calls */
 export const API_TIMEOUT_MS = 10000;
+
+/** Displayed application version string */
+export const APP_VERSION = '1.0.0';
