@@ -75,3 +75,6 @@ export const TOAST_DURATION_MS = 3000;
 
 /** Maximum characters shown in an error message tooltip */
 export const MAX_ERROR_MSG_LEN = 120;
+
+/** Default timeout (ms) for REST API fetch calls */
+export const API_TIMEOUT_MS = 10000;
