@@ -1,4 +1,4 @@
-package com.payroute.transaction;
+﻿package com.payroute.transaction;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+/** @since 1.0.0 */
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
-    /** Idempotency check — find an existing transaction by its idempotency key. */
+    /** Idempotency check â€” find an existing transaction by its idempotency key. */
     Optional<Transaction> findByIdempotencyKey(String idempotencyKey);
 
     /** Anomaly detection: count how many transactions a source has submitted
@@ -32,3 +33,4 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     /** Dashboard: fetch the latest N transactions for the initial page load. */
     List<Transaction> findTop50ByOrderByCreatedAtDesc();
 }
+
