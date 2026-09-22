@@ -1,4 +1,4 @@
-package com.payroute.anomaly;
+﻿package com.payroute.anomaly;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+/** @since 1.0.0 */
 public interface AnomalyRepository extends JpaRepository<Anomaly, String> {
 
     /** Dashboard: return the 100 most recent anomalies. */
@@ -14,3 +15,4 @@ public interface AnomalyRepository extends JpaRepository<Anomaly, String> {
     /** Check if a specific transaction has already been flagged for a given type. */
     boolean existsByTransactionIdAndType(String transactionId, AnomalyType type);
 }
+
