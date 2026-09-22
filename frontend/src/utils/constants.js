@@ -69,3 +69,6 @@ export const ANOMALY_POLL_INTERVAL_MS = 5000;
 
 /** Number of columns in the provider health grid */
 export const PROVIDER_GRID_COLS = 3;
+
+/** Default duration (ms) for transient toast/notification messages */
+export const TOAST_DURATION_MS = 3000;
