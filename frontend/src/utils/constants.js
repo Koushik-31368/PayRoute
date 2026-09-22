@@ -63,3 +63,6 @@ export const MIN_BURST_COUNT = 5;
 
 /** Human-readable label shown in the UI for the OPEN circuit breaker state */
 export const CB_OPEN_LABEL = 'Circuit Open';
+
+/** Interval (ms) to refresh the anomaly list from REST API */
+export const ANOMALY_POLL_INTERVAL_MS = 5000;
