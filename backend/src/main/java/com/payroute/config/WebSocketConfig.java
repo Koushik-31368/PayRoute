@@ -1,4 +1,4 @@
-package com.payroute.config;
+﻿package com.payroute.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -15,7 +15,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  *     Uses Spring's built-in in-memory message broker for topics.
  *     "/topic/..." is for broadcast (one-to-many).
  *     In production, you'd replace this with a full broker (RabbitMQ/Redis)
- *     for horizontal scaling — the simple broker only works on a single node.
+ *     for horizontal scaling â€” the simple broker only works on a single node.
  *
  *  2. setApplicationDestinationPrefixes("/app")
  *     Messages sent TO "/app/..." are routed to @MessageMapping methods.
@@ -27,10 +27,11 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  *     SockJS provides a transparent HTTP fallback (long-polling, XHR streaming)
  *     for environments that block WebSocket connections.
  *     setAllowedOriginPatterns("*") permits the React dev server (localhost:5173)
- *     to connect — tighten this in production.
+ *     to connect â€” tighten this in production.
  */
 @Configuration
 @EnableWebSocketMessageBroker
+/** @since 1.0.0 */
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
@@ -46,3 +47,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .withSockJS();
     }
 }
+
