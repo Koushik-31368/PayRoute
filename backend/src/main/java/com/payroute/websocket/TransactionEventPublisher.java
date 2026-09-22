@@ -1,4 +1,4 @@
-package com.payroute.websocket;
+﻿package com.payroute.websocket;
 
 import com.payroute.transaction.Transaction;
 import com.payroute.transaction.TransactionAttempt;
@@ -16,16 +16,17 @@ import java.util.Map;
  *   - STOMP is a simple text-based messaging protocol layered on top of WebSocket.
  *   - Clients subscribe to a "topic" (e.g. /topic/transactions).
  *   - When we call convertAndSend(), Spring broadcasts the message to all
- *     subscribed clients automatically — no manual connection tracking needed.
+ *     subscribed clients automatically â€” no manual connection tracking needed.
  *   - SockJS provides a fallback (long-polling) for browsers that don't support
  *     native WebSocket.
  *
  * This class is called by TransactionService after each transaction completes.
- * The payload sent to the client is a compact summary — not the full JPA entity
+ * The payload sent to the client is a compact summary â€” not the full JPA entity
  * (which would cause lazy-loading issues and expose internal fields).
  */
 @Component
 @RequiredArgsConstructor
+/** @since 1.0.0 */
 public class TransactionEventPublisher {
 
     private final SimpMessagingTemplate messagingTemplate;
@@ -81,3 +82,4 @@ public class TransactionEventPublisher {
         messagingTemplate.convertAndSend(ANOMALY_TOPIC, event);
     }
 }
+
