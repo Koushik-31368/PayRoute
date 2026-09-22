@@ -1,4 +1,4 @@
-package com.payroute.transaction;
+﻿package com.payroute.transaction;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +11,13 @@ import java.util.List;
 /**
  * REST controller for the transaction lifecycle.
  *
- * POST /api/transactions  — Submit a payment request
- * GET  /api/transactions  — List recent transactions (for initial dashboard load)
+ * POST /api/transactions  â€” Submit a payment request
+ * GET  /api/transactions  â€” List recent transactions (for initial dashboard load)
  */
 @RestController
 @RequestMapping("/api/transactions")
 @RequiredArgsConstructor
+/** @since 1.0.0 */
 public class TransactionController {
 
     private final TransactionService transactionService;
@@ -51,3 +52,4 @@ public class TransactionController {
         return ResponseEntity.ok(transactionRepository.findTop50ByOrderByCreatedAtDesc());
     }
 }
+
