@@ -1,4 +1,9 @@
-﻿# PayRoute API Reference
+﻿## API Version
+
+Current version: **v1** (all endpoints under /api/)  
+No breaking changes planned for v1.
+
+# PayRoute API Reference
 
 Base URL: `http://localhost:8080`
 
@@ -49,3 +54,4 @@ Connect to /ws using STOMP over SockJS.
 Topics:
   /topic/transactions - real-time transaction events
   /topic/anomalies    - real-time anomaly alerts
+
