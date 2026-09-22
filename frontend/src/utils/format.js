@@ -73,12 +73,16 @@ export function timeAgo(isoString) {
  * Format a latency value in milliseconds to a human-readable string.
  * Examples: 450 -> "450ms", 1200 -> "1.2s"
  * @param {number} ms
+ * @example
+ * formatLatency(450)  // '450ms'
+ * formatLatency(1200) // '1.2s'
  * @returns {string}
  */
 export function formatLatency(ms) {
   if (ms < 1000) return `${ms}ms`;
   return `${(ms / 1000).toFixed(1)}s`;
 }
+
 
 
 
