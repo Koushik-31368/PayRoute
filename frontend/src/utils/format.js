@@ -9,6 +9,9 @@
 /**
  * Format a number as Indian Rupee currency.
  * @param {number} amount
+ * @example
+ * // returns '₹5,000.00'
+ * formatINR(5000)
  * @param {boolean} [compact=false] - Use compact notation for large amounts (e.g. ₹11.2L)
  */
 export function formatINR(amount, compact = false) {
@@ -73,4 +76,5 @@ export function formatLatency(ms) {
   if (ms < 1000) return `${ms}ms`;
   return `${(ms / 1000).toFixed(1)}s`;
 }
+
 
