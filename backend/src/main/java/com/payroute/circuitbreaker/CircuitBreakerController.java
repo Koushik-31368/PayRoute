@@ -1,4 +1,4 @@
-package com.payroute.circuitbreaker;
+﻿package com.payroute.circuitbreaker;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/circuit-breakers")
 @RequiredArgsConstructor
+/** @since 1.0.0 */
 public class CircuitBreakerController {
 
     private final CircuitBreakerRegistry registry;
@@ -40,3 +41,4 @@ public class CircuitBreakerController {
                 .toList();
     }
 }
+
