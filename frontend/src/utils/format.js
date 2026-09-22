@@ -55,6 +55,9 @@ export function formatDateTime(isoString) {
 /**
  * Returns a human-readable relative time string (e.g. "2s ago", "5m ago").
  * @param {string} isoString
+ * @example
+ * // returns '2s ago'
+ * timeAgo(new Date(Date.now() - 2000).toISOString())
  */
 export function timeAgo(isoString) {
   const diffMs = Date.now() - new Date(isoString).getTime();
@@ -76,5 +79,6 @@ export function formatLatency(ms) {
   if (ms < 1000) return `${ms}ms`;
   return `${(ms / 1000).toFixed(1)}s`;
 }
+
 
 
