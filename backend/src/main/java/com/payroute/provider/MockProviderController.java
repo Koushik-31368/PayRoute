@@ -1,4 +1,4 @@
-package com.payroute.provider;
+﻿package com.payroute.provider;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -7,22 +7,22 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 /**
- * Mock provider endpoints — simulate three payment gateways.
+ * Mock provider endpoints â€” simulate three payment gateways.
  *
  * These live in the same Spring Boot app as the orchestrator (not separate
  * services). The tradeoffs:
  *
  *   SAME APP (chosen here):
- *   ✓ One docker-compose service, simpler networking, faster startup
- *   ✓ Failure simulation is still realistic because ProviderSimulator adds
+ *   âœ“ One docker-compose service, simpler networking, faster startup
+ *   âœ“ Failure simulation is still realistic because ProviderSimulator adds
  *     real Thread.sleep() latency and random outcomes
- *   ✗ Failures here can't crash independently of the orchestrator
- *   ✗ In a real system, providers are external — you'd stub at the HTTP level
+ *   âœ— Failures here can't crash independently of the orchestrator
+ *   âœ— In a real system, providers are external â€” you'd stub at the HTTP level
  *
  *   SEPARATE SERVICES (production approach):
- *   ✓ More realistic — network timeouts are actual TCP timeouts
- *   ✓ You can kill/restart provider containers independently
- *   ✗ 3 extra services in docker-compose, harder to manage in a demo
+ *   âœ“ More realistic â€” network timeouts are actual TCP timeouts
+ *   âœ“ You can kill/restart provider containers independently
+ *   âœ— 3 extra services in docker-compose, harder to manage in a demo
  *
  * For a portfolio project where the learning goal is the orchestration logic,
  * same-app simulation gives the same educational value with far less friction.
@@ -33,6 +33,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/mock")
 @RequiredArgsConstructor
+/** @since 1.0.0 */
 public class MockProviderController {
 
     private final ProviderSimulator simulator;
@@ -83,3 +84,4 @@ public class MockProviderController {
         );
     }
 }
+
