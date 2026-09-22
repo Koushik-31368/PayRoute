@@ -81,3 +81,6 @@ export const API_TIMEOUT_MS = 10000;
 
 /** Displayed application version string */
 export const APP_VERSION = '1.0.0';
+
+/** Locale string used for INR number formatting */
+export const CURRENCY_LOCALE = 'en-IN';
