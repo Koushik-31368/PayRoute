@@ -40,3 +40,6 @@ To audit frontend dependencies:
 ```bash
 cd frontend && npm audit
 ```
+
+
+> For sensitive disclosures, contact the maintainer directly via GitHub private message.
