@@ -1,3 +1,4 @@
+﻿// @version 1.0.0
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './index.css';
 import ProviderHealthCard from './components/ProviderHealthCard';
@@ -15,13 +16,13 @@ import {
 import { v4 as uuid } from 'uuid';
 
 export default function App() {
-  // ── State ──────────────────────────────────────────────────
+  // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const [transactions, setTransactions] = useState([]);
   const [providers, setProviders] = useState([]);
   const [anomalies, setAnomalies] = useState([]);
   const [wsConnected, setWsConnected] = useState(false);
 
-  // Manual submit form — persisted in localStorage so values survive page reloads
+  // Manual submit form â€” persisted in localStorage so values survive page reloads
   const [formAmount, setFormAmount] = useLocalStorage('payroute.formAmount', '5000');
   const [formSource, setFormSource] = useLocalStorage('payroute.formSource', 'customer-001');
   const [submitting, setSubmitting] = useState(false);
@@ -29,7 +30,7 @@ export default function App() {
   // Stats
   const [stats, setStats] = useState({ total: 0, success: 0, failed: 0 });
 
-  // ── Initial data load ──────────────────────────────────────
+  // â”€â”€ Initial data load â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     async function load() {
       try {
@@ -56,7 +57,7 @@ export default function App() {
     setStats({ total, success, failed });
   }
 
-  // ── Poll circuit breaker state every 3s ────────────────────
+  // â”€â”€ Poll circuit breaker state every 3s â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     const id = setInterval(async () => {
       try {
@@ -67,7 +68,7 @@ export default function App() {
     return () => clearInterval(id);
   }, []);
 
-  // ── WebSocket for live updates ──────────────────────────────
+  // â”€â”€ WebSocket for live updates â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const handleWsMessage = useCallback((topic, body) => {
     setWsConnected(true);
     if (topic === '/topic/transactions') {
@@ -86,7 +87,7 @@ export default function App() {
     onMessage: handleWsMessage,
   });
 
-  // ── Manual submit ──────────────────────────────────────────
+  // â”€â”€ Manual submit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function handleSubmit(e) {
     e.preventDefault();
     if (!formAmount || !formSource) return;
@@ -121,7 +122,7 @@ export default function App() {
 
   return (
     <div className="app">
-      {/* ── Header ── */}
+      {/* â”€â”€ Header â”€â”€ */}
       <header className="header">
         <div className="header__logo">
           <div className="header__logo-mark">PR</div>
@@ -137,7 +138,7 @@ export default function App() {
       </header>
 
       <main className="main">
-        {/* ── Stats Bar ── */}
+        {/* â”€â”€ Stats Bar â”€â”€ */}
         <div className="stats-row">
           <div className="stat-chip">
             <span className="stat-chip__value">{stats.total}</span>
@@ -157,16 +158,16 @@ export default function App() {
           </div>
           <div className="stat-chip">
             <span className="stat-chip__value">
-              {stats.total > 0 ? ((stats.success / stats.total) * 100).toFixed(1) : '—'}%
+              {stats.total > 0 ? ((stats.success / stats.total) * 100).toFixed(1) : 'â€”'}%
             </span>
             <span className="stat-chip__label">Success Rate</span>
           </div>
         </div>
 
-        {/* ── Provider Health ── */}
+        {/* â”€â”€ Provider Health â”€â”€ */}
         <section className="section">
           <div className="section__header">
-            <h2 className="section__title">⚡ Provider Health</h2>
+            <h2 className="section__title">âš¡ Provider Health</h2>
             <span className="section__badge">Circuit Breakers</span>
           </div>
           <div className="section__body">
@@ -185,15 +186,15 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── Submit + Burst ── */}
+        {/* â”€â”€ Submit + Burst â”€â”€ */}
         <section className="section">
           <div className="section__header">
-            <h2 className="section__title">💳 Submit Payment</h2>
+            <h2 className="section__title">ðŸ’³ Submit Payment</h2>
           </div>
           <div className="section__body">
             <form className="submit-form" onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Amount (₹)</label>
+                <label>Amount (â‚¹)</label>
                 <input
                   type="number"
                   min="1"
@@ -221,10 +222,10 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── Burst Simulator ── */}
+        {/* â”€â”€ Burst Simulator â”€â”€ */}
         <section className="section">
           <div className="section__header">
-            <h2 className="section__title">🔥 Burst Simulator</h2>
+            <h2 className="section__title">ðŸ”¥ Burst Simulator</h2>
             <span className="section__badge">Trips Circuit Breakers</span>
           </div>
           <div className="section__body">
@@ -232,11 +233,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── Live Feed + Anomalies ── */}
+        {/* â”€â”€ Live Feed + Anomalies â”€â”€ */}
         <div className="two-col">
           <section className="section">
             <div className="section__header">
-              <h2 className="section__title">📡 Live Transaction Feed</h2>
+              <h2 className="section__title">ðŸ“¡ Live Transaction Feed</h2>
               <span className="section__badge">{transactions.length} transactions</span>
             </div>
             <div className="section__body">
@@ -246,7 +247,7 @@ export default function App() {
 
           <section className="section">
             <div className="section__header">
-              <h2 className="section__title">🚨 Anomaly Log</h2>
+              <h2 className="section__title">ðŸš¨ Anomaly Log</h2>
               <span className="section__badge">{anomalies.length}</span>
             </div>
             <div className="section__body">
@@ -258,3 +259,4 @@ export default function App() {
     </div>
   );
 }
+
