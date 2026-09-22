@@ -66,3 +66,6 @@ export const CB_OPEN_LABEL = 'Circuit Open';
 
 /** Interval (ms) to refresh the anomaly list from REST API */
 export const ANOMALY_POLL_INTERVAL_MS = 5000;
+
+/** Number of columns in the provider health grid */
+export const PROVIDER_GRID_COLS = 3;
